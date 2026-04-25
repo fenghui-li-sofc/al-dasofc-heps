@@ -17,8 +17,8 @@ It enables efficient prediction of target descriptors with a limited number of D
 The same workflow is applied to three descriptors:
 
 - Oxygen vacancy formation energy (ΔE_Ov)
-- Nitrogen adsorption energy (ΔE_N)
-- Hydrogen adsorption energy (ΔE_H)
+- N binding energy (ΔE_N)
+- H binding energy (ΔE_H)
 
 Only the target label and minor hyperparameters differ.  
 The core algorithm and workflow remain identical.
