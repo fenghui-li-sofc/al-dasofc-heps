@@ -1,35 +1,23 @@
-# Active Learning Framework for High-Entropy Perovskite Screening
+# GPR analysis of high-entropy perovskite anodes
 
-This repository provides the active learning workflow used for screening high-entropy perovskite electrocatalysts.
+Code and predictions for the study of ammonia conversion on high-entropy perovskite anodes. The package supports archived-result verification, holdout evaluation, and GPR training with an external training table.
 
-## Overview
+# Data
 
-The framework combines:
+The candidate space contains 4089 compositions: 76 training, 15 holdout, and 3998 remaining candidates. The computational A-site composition is La0.583Sr0.417.
 
-- Gaussian Process Regression (GPR)
-- Bayesian optimization for hyperparameter tuning
-- Uncertainty-guided active learning
+## Run
 
-It enables efficient prediction of target descriptors with a limited number of DFT-labeled samples.
+Use Python 3.12 with the pinned dependencies, preferably in a virtual environment:
+python -m pip install -r requirements.txt
 
-## Target Properties
+These commands check archived files, recompute holdout metrics, and generate plots without retraining. Outputs are saved under `results/`.
+Exact reproduction requires the original full-precision features, labels, and identifiers. The SI reports training compositions, labels, and rounds; these do not by themselves supply the complete feature matrix. Cross-validation output includes the supplied training labels.
 
-The same workflow is applied to three descriptors:
+# Method and provenance
+Three independent GPR models use standardized features, normalized targets, and a Matérn kernel (nu = 2.5) plus white noise. Grouped outer folds evaluate generalization across B-site element combinations; grouped inner folds calibrate uncertainty. Numerical settings are retained in `model_core.py`.
 
-- Oxygen vacancy formation energy (ΔE_Ov)
-- N binding energy (ΔE_N)
-- H binding energy (ΔE_H)
 
-Only the target label and minor hyperparameters differ.  
-The core algorithm and workflow remain identical.
+## Data
 
-## Usage
-
-1. Prepare input datasets:
-   - `Train_data.xlsx`: initial labeled data
-   - `Sample.xlsx`: unlabeled candidate pool
-
-2. Set target label in `main.py`:
-
-```python
-"target_label": "E_Ov"   # or E_N / E_H
+The candidate space contains 4089 compositions: 76 training, 15 holdout, and 3998 remaining candidates. The computational A-site composition is La0.583Sr0.417.
